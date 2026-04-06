@@ -58,6 +58,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         email: user.email ?? _emailController.text.trim(),
         displayName: _nameController.text.trim(),
         role: _role,
+        isVerified: _role == UserRole.vet ? false : true,
+        isActive: true,
         createdAt: DateTime.now(),
       );
 

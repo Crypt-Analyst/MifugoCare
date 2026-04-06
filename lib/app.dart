@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 
 import 'core/constants/app_theme.dart';
 import 'data/repositories/user_repository.dart';
+import 'features/auth/screens/account_disabled_screen.dart';
 import 'features/auth/screens/login_screen.dart';
 import 'features/auth/screens/role_select_screen.dart';
+import 'features/auth/screens/vet_pending_screen.dart';
 import 'features/dashboards/admin_dashboard.dart';
 import 'features/dashboards/buyer_dashboard.dart';
 import 'features/dashboards/pastoralist_dashboard.dart';
@@ -55,6 +57,14 @@ class AuthGate extends StatelessWidget {
             final profile = profileSnapshot.data;
             if (profile == null) {
               return RoleSelectScreen(user: user);
+            }
+
+            if (!profile.isActive) {
+              return const AccountDisabledScreen();
+            }
+
+            if (profile.role == UserRole.vet && !profile.isVerified) {
+              return const VetPendingScreen();
             }
 
             switch (profile.role) {

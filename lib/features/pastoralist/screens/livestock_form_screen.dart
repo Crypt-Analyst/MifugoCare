@@ -68,6 +68,7 @@ class _LivestockFormScreenState extends State<LivestockFormScreen> {
         ageMonths: age,
         location: _locationController.text.trim(),
         healthStatus: _healthController.text.trim(),
+        status: 'active',
         price: price,
         createdAt: DateTime.now(),
       );

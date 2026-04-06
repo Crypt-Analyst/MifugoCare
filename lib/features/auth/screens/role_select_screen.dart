@@ -31,6 +31,8 @@ class _RoleSelectScreenState extends State<RoleSelectScreen> {
         email: widget.user.email ?? '',
         displayName: widget.user.displayName ?? 'New user',
         role: _role,
+        isVerified: _role == UserRole.vet ? false : true,
+        isActive: true,
         createdAt: DateTime.now(),
       );
 

@@ -5,6 +5,7 @@ import '../../data/repositories/auth_repository.dart';
 import '../pastoralist/screens/emergency_alert_screen.dart';
 import '../pastoralist/screens/health_records_screen.dart';
 import '../pastoralist/screens/livestock_list_screen.dart';
+import '../pastoralist/screens/pastoralist_messages_screen.dart';
 import '../pastoralist/screens/vet_request_screen.dart';
 
 class PastoralistDashboard extends StatelessWidget {
@@ -68,6 +69,18 @@ class PastoralistDashboard extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => const HealthRecordsScreen()),
+              );
+            },
+          ),
+          _ActionCard(
+            title: 'Buyer Messages',
+            subtitle: 'Reply to buyer inquiries',
+            icon: Icons.chat_bubble_outline,
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const PastoralistMessagesScreen(),
+                ),
               );
             },
           ),

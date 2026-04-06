@@ -10,6 +10,7 @@ class Livestock {
     required this.ageMonths,
     required this.location,
     required this.healthStatus,
+    required this.status,
     required this.price,
     required this.createdAt,
   });
@@ -22,6 +23,7 @@ class Livestock {
   final int ageMonths;
   final String location;
   final String healthStatus;
+  final String status;
   final double? price;
   final DateTime createdAt;
 
@@ -36,6 +38,7 @@ class Livestock {
       ageMonths: data['ageMonths'] as int,
       location: data['location'] as String,
       healthStatus: data['healthStatus'] as String,
+      status: data['status'] as String? ?? 'active',
       price: (data['price'] as num?)?.toDouble(),
       createdAt: (data['createdAt'] as Timestamp).toDate(),
     );
@@ -50,6 +53,7 @@ class Livestock {
       'ageMonths': ageMonths,
       'location': location,
       'healthStatus': healthStatus,
+      'status': status,
       'price': price,
       'createdAt': Timestamp.fromDate(createdAt),
     };
