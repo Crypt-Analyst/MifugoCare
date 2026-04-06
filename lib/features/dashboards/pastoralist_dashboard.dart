@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/repositories/auth_repository.dart';
+import '../../shared/widgets/dashboard_action_card.dart';
+import '../../shared/widgets/dashboard_header.dart';
 import '../pastoralist/screens/emergency_alert_screen.dart';
 import '../pastoralist/screens/health_records_screen.dart';
 import '../pastoralist/screens/livestock_list_screen.dart';
@@ -16,7 +18,7 @@ class PastoralistDashboard extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pastoralist Dashboard'),
+        title: const Text('Pastoralist Hub'),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -27,12 +29,14 @@ class PastoralistDashboard extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Text(
-            'Welcome ${user?.email ?? ''}',
-            style: Theme.of(context).textTheme.titleMedium,
+          DashboardHeader(
+            title: 'Care for your herd',
+            subtitle: 'Manage health, sales, and vet services',
+            caption: user?.email ?? 'Stay connected to your vet network',
+            icon: Icons.agriculture,
           ),
-          const SizedBox(height: 16),
-          _ActionCard(
+          const SizedBox(height: 20),
+          DashboardActionCard(
             title: 'Request Vet',
             subtitle: 'Book a vet appointment',
             icon: Icons.medical_services_outlined,
@@ -42,7 +46,7 @@ class PastoralistDashboard extends StatelessWidget {
               );
             },
           ),
-          _ActionCard(
+          DashboardActionCard(
             title: 'Emergency Alert',
             subtitle: 'Send an urgent request',
             icon: Icons.warning_amber_outlined,
@@ -52,7 +56,7 @@ class PastoralistDashboard extends StatelessWidget {
               );
             },
           ),
-          _ActionCard(
+          DashboardActionCard(
             title: 'My Livestock',
             subtitle: 'Manage your listings',
             icon: Icons.pets_outlined,
@@ -62,7 +66,7 @@ class PastoralistDashboard extends StatelessWidget {
               );
             },
           ),
-          _ActionCard(
+          DashboardActionCard(
             title: 'Health Records',
             subtitle: 'View treatments and vaccinations',
             icon: Icons.health_and_safety_outlined,
@@ -72,7 +76,7 @@ class PastoralistDashboard extends StatelessWidget {
               );
             },
           ),
-          _ActionCard(
+          DashboardActionCard(
             title: 'Buyer Messages',
             subtitle: 'Reply to buyer inquiries',
             icon: Icons.chat_bubble_outline,
@@ -85,33 +89,6 @@ class PastoralistDashboard extends StatelessWidget {
             },
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _ActionCard extends StatelessWidget {
-  const _ActionCard({
-    required this.title,
-    required this.subtitle,
-    required this.icon,
-    required this.onTap,
-  });
-
-  final String title;
-  final String subtitle;
-  final IconData icon;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: Icon(icon),
-        title: Text(title),
-        subtitle: Text(subtitle),
-        trailing: const Icon(Icons.chevron_right),
-        onTap: onTap,
       ),
     );
   }

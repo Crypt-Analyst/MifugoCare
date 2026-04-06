@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../data/repositories/auth_repository.dart';
+import '../../shared/widgets/dashboard_action_card.dart';
+import '../../shared/widgets/dashboard_header.dart';
 import '../buyer/screens/buyer_listings_screen.dart';
 import '../buyer/screens/buyer_messages_screen.dart';
 import '../buyer/screens/buyer_saved_listings_screen.dart';
@@ -12,7 +14,7 @@ class BuyerDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Buyer Dashboard'),
+        title: const Text('Buyer Market'),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -23,7 +25,13 @@ class BuyerDashboard extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          _ActionCard(
+          const DashboardHeader(
+            title: 'Browse verified livestock',
+            subtitle: 'Find healthy animals and connect fast',
+            icon: Icons.storefront,
+          ),
+          const SizedBox(height: 20),
+          DashboardActionCard(
             title: 'Browse Listings',
             subtitle: 'Filter livestock by type and location',
             icon: Icons.storefront,
@@ -33,7 +41,7 @@ class BuyerDashboard extends StatelessWidget {
               );
             },
           ),
-          _ActionCard(
+          DashboardActionCard(
             title: 'Messages',
             subtitle: 'Contact pastoralists',
             icon: Icons.chat_bubble_outline,
@@ -43,7 +51,7 @@ class BuyerDashboard extends StatelessWidget {
               );
             },
           ),
-          _ActionCard(
+          DashboardActionCard(
             title: 'Saved Listings',
             subtitle: 'Keep track of favorites',
             icon: Icons.bookmark_border,
@@ -56,33 +64,6 @@ class BuyerDashboard extends StatelessWidget {
             },
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _ActionCard extends StatelessWidget {
-  const _ActionCard({
-    required this.title,
-    required this.subtitle,
-    required this.icon,
-    required this.onTap,
-  });
-
-  final String title;
-  final String subtitle;
-  final IconData icon;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: Icon(icon),
-        title: Text(title),
-        subtitle: Text(subtitle),
-        trailing: const Icon(Icons.chevron_right),
-        onTap: onTap,
       ),
     );
   }
