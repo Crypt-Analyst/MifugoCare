@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'core/constants/app_theme.dart';
+import 'core/services/notification_service.dart';
 import 'data/repositories/user_repository.dart';
 import 'features/auth/screens/account_disabled_screen.dart';
 import 'features/auth/screens/login_screen.dart';
@@ -26,8 +27,23 @@ class MifugoCareApp extends StatelessWidget {
   }
 }
 
-class AuthGate extends StatelessWidget {
+class AuthGate extends StatefulWidget {
   const AuthGate({super.key});
+
+  @override
+  State<AuthGate> createState() => _AuthGateState();
+}
+
+class _AuthGateState extends State<AuthGate> {
+  String? _registeredUid;
+
+  Future<void> _registerToken(User user) async {
+    if (_registeredUid == user.uid) {
+      return;
+    }
+    _registeredUid = user.uid;
+    await NotificationService.instance.registerDevice(user.uid);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +74,8 @@ class AuthGate extends StatelessWidget {
             if (profile == null) {
               return RoleSelectScreen(user: user);
             }
+
+            _registerToken(user);
 
             if (!profile.isActive) {
               return const AccountDisabledScreen();

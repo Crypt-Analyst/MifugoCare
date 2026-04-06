@@ -52,4 +52,11 @@ class UserRepository {
   }) async {
     await _users.doc(uid).update({'isActive': isActive});
   }
+
+  Future<void> updateFcmToken({
+    required String uid,
+    required String token,
+  }) async {
+    await _users.doc(uid).update({'fcmToken': token});
+  }
 }
